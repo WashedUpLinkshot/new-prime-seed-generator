@@ -714,13 +714,13 @@ while(resetter < 105){
 		k++;}
 	}
 
-	if(escapePhendrana && hasPlasma && (hasSJ || hasBombs){
+	if(escapePhendrana && hasPlasma && (hasSJ || hasBombs)){
 	if(!isAdded[40]){ //ICE RUINS WEST
 		obItems[k] = items[40];
 		isAdded[40] = true;
 		k++;}
 	}
-	if(escapePhendrana && hasPlasma)){ //removed Infinite Speed
+	if(escapePhendrana && hasPlasma){ //removed Infinite Speed
 	if(!isAdded[41]){ //ICE RUINS EAST (ICE)
 		obItems[k] = items[41];
 		isAdded[41] = true;
@@ -826,7 +826,7 @@ while(resetter < 105){
 			k++;}
 	}
 
-	if(escapePhendrana && ((hasSJ && hasWave) || (labViaPike && hasBombs)){
+	if(escapePhendrana && ((hasSJ && hasWave) || (labViaPike && hasBombs))){
 		if(!isAdded[55]){ // RESEARCH LAB AETHER (MORPH TRACK)
 			obItems[k] = items[55];
 			isAdded[55] = true;
