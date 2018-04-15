@@ -260,7 +260,7 @@ while(resetter < 105){
 		
 		
 	if(backdoorThardus){
-		if((hasCharge || phenCharge) && (hasSuper || phenSuper) && (hasSJ || phenSJ) && (hasGrapple || hasSpider || phenCling){
+		if((hasCharge || phenCharge) && (hasSuper || phenSuper) && (hasSJ || phenSJ) && (hasGrapple || hasSpider || phenCling)){
 			returnViaThardus = true;
 		}
 		if((hasSJ || phenSJ) && (hasIce || phenIce)){
