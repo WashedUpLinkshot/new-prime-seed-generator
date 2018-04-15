@@ -707,7 +707,7 @@ while(resetter < 105){
 		isAdded[38] = true;
 		k++;}
 	}
-	if(escapePhendrana && hasSJ && hasMorph && hasPlasma)){ //removed Infinite Speed and Bomb Jumps
+	if(escapePhendrana && hasSJ && hasMorph && hasPlasma){ //removed Infinite Speed and Bomb Jumps
 	if(!isAdded[39]){ //CHOZO ICE TEMPLE
 		obItems[k] = items[39];
 		isAdded[39] = true;
