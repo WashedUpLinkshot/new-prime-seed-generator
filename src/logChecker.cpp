@@ -125,6 +125,22 @@ int w = 0; //for traversing the item requirements
 int z = 0; //for debugging
 int m = 0; //more debugging
 int resetter = 0;
+bool canCrossTwinFires = false; //can cross Twin Fires safely
+bool backdoorThardus = false; //can access Phendrana via Tallon-Magmoor South
+bool escapePhendrana = false; //can leave Phendrana after accessing via Thardus
+bool labViaPike = false; //can get into Phendrana Research Lab without Space Jump
+bool returnViaThardus = false; //a lock that assures you can exit to Magmoor via Thardus
+bool returnViaPike = false; //a lock that assures you can exit to Magmoor via Frozen Pike
+bool returnViaShorelines = false; //a lock that assures you exit to Monitor Station via Transport Tunnel A
+bool phenSJ = false; //a key for the returnVia set
+bool phenBombs = false; //a key for the returnVia set
+bool phenBoost = false; //a key for the returnVia set
+bool phenSuit = false; //a key for the returnVia set
+bool phenIce = false; //a key for the returnVia set
+bool phenCharge = false; //a key for the returnVia set
+bool phenSuper = false; //a key for the returnVia set
+bool phenCling = false; //a key for the returnVia set that checks if Grapple or Spider are available
+bool phenSpider = false; //a key for Item[38] & Item[42] in case they hold something that unlocks ViaPike or ViaShorelines
 a = 0;
 
 while(resetter < 104){
@@ -166,6 +182,23 @@ while(resetter < 105){
 	earlyMinesSpider = false;
 	earlyMinesPB = false;
 	earlyMinesPlasma = false;
+	backdoorThardus = false;
+	canCrossTwinFires = false;
+	escapePhendrana = false;
+	labViaPike = false;
+	returnViaThardus = false;
+	returnViaPike = false;
+	returnViaShorelines = false;
+	
+	phenSJ = false;
+	phenBombs = false;
+	phenBoost = false;
+	phenSuit = false;
+	phenIce = false;
+	phenCharge = false;
+	phenSuper = false;
+	phenCling = false;
+	phenSpider = false;
 
 
 
@@ -186,6 +219,251 @@ while(resetter < 105){
 
   firstCheck = true;
 	while (checkObtainedItems(verbose, logline, false)){
+	
+	
+	if(hasMissiles && hasMorph && hasWave){
+		if((hasSJ && (hasGravity || (hasSuit && e >= 1) || e >= 2))){
+			canCrossTwinFires = true;
+		}
+		if((hasSpider && (hasSuit || e >= 3))){
+			canCrossTwinFires = true;
+		}
+	}
+	
+	
+	if(canCrossTwinFires){
+		if(hasSJ || hasSpider){
+			backdoorThardus = true;
+		}
+		if(items[46] == "Space Jump Boots" || items[46] == "Spider Ball"){
+			backdoorThardus = true;
+		}
+		if(hasSpider && hasIce && hasWave){
+			labViaPike = true;
+		}
+	}
+		
+		
+	if(hasMissiles && hasMorph && hasSuit && hasBombs){
+		escapePhendrana = true;
+	}
+		
+		
+	if(returnViaThardus || returnViaPike || returnViaShorelines){
+		escapePhendrana = true;
+	}
+		
+		
+	if(phenSpider){
+		phenCling = true;
+	}
+		
+		
+	if(backdoorThardus){
+		if((hasCharge || phenCharge) && (hasSuper || phenSuper) && (hasSJ || phenSJ) && (hasGrapple || hasSpider || phenCling){
+			returnViaThardus = true;
+		}
+		if((hasSJ || phenSJ) && (hasIce || phenIce)){
+			returnViaPike = true;
+		}
+		if((hasSuit || phenSuit)){
+			if(hasBombs || phenBombs){
+				returnViaShorelines = true;
+			}
+			if(hasBoost || phenBoost){
+				returnViaShorelines = true;
+			}
+		}
+	}
+		   
+	//if you can make this library cleaner please help me
+	if(items[37] == "Charge Beam"){ phenCharge = true; }
+	if(items[37] == "Super Missile"){ phenSuper = true; }
+	if(items[37] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[37] == "Grapple Beam"){ phenCling = true; }
+	if(items[37] == "Spider Ball"){ phenSpider = true; }
+	if(items[37] == "Ice Beam"){ phenIce = true; }
+	if(items[37] == "Varia Suit"){ phenSuit = true; }
+	if(items[37] == "Gravity Suit"){ phenSuit = true; }
+	if(items[37] == "Phazon Suit"){ phenSuit = true; }
+	if(items[37] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[37] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[38] == "Ice Beam"){ phenIce = true; }
+	if(items[38] == "Varia Suit"){ phenSuit = true; }
+	if(items[38] == "Gravity Suit"){ phenSuit = true; }
+	if(items[38] == "Phazon Suit"){ phenSuit = true; }
+	if(items[38] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[38] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[39] == "Charge Beam"){ phenCharge = true; }
+	if(items[39] == "Super Missile"){ phenSuper = true; }
+	if(items[39] == "Grapple Beam"){ phenCling = true; }
+	if(items[39] == "Spider Ball"){ phenSpider = true; }
+	if(items[39] == "Ice Beam"){ phenIce = true; }
+	if(items[39] == "Varia Suit"){ phenSuit = true; }
+	if(items[39] == "Gravity Suit"){ phenSuit = true; }
+	if(items[39] == "Phazon Suit"){ phenSuit = true; }
+	if(items[39] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[39] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[40] == "Charge Beam"){ phenCharge = true; }
+	if(items[40] == "Super Missile"){ phenSuper = true; }
+	if(items[40] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[40] == "Grapple Beam"){ phenCling = true; }
+	if(items[40] == "Spider Ball"){ phenSpider = true; }
+	if(items[40] == "Ice Beam"){ phenIce = true; }
+	if(items[40] == "Varia Suit"){ phenSuit = true; }
+	if(items[40] == "Gravity Suit"){ phenSuit = true; }
+	if(items[40] == "Phazon Suit"){ phenSuit = true; }
+	if(items[40] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[40] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[41] == "Charge Beam"){ phenCharge = true; }
+	if(items[41] == "Super Missile"){ phenSuper = true; }
+	if(items[41] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[41] == "Grapple Beam"){ phenCling = true; }
+	if(items[41] == "Spider Ball"){ phenSpider = true; }
+	if(items[41] == "Ice Beam"){ phenIce = true; }
+	if(items[41] == "Varia Suit"){ phenSuit = true; }
+	if(items[41] == "Gravity Suit"){ phenSuit = true; }
+	if(items[41] == "Phazon Suit"){ phenSuit = true; }
+	if(items[41] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[41] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[42] == "Charge Beam"){ phenCharge = true; }
+	if(items[42] == "Super Missile"){ phenSuper = true; }
+	if(items[42] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[42] == "Grapple Beam"){ phenCling = true; }
+	if(items[42] == "Ice Beam"){ phenIce = true; }
+	if(items[42] == "Varia Suit"){ phenSuit = true; }
+	if(items[42] == "Gravity Suit"){ phenSuit = true; }
+	if(items[42] == "Phazon Suit"){ phenSuit = true; }
+	if(items[42] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[42] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[43] == "Charge Beam"){ phenCharge = true; }
+	if(items[43] == "Super Missile"){ phenSuper = true; }
+	if(items[43] == "Grapple Beam"){ phenCling = true; }
+	if(items[43] == "Spider Ball"){ phenSpider = true; }
+	if(items[43] == "Ice Beam"){ phenIce = true; }
+	if(items[43] == "Varia Suit"){ phenSuit = true; }
+	if(items[43] == "Gravity Suit"){ phenSuit = true; }
+	if(items[43] == "Phazon Suit"){ phenSuit = true; }
+	if(items[43] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[44] == "Charge Beam"){ phenCharge = true; }
+	if(items[44] == "Super Missile"){ phenSuper = true; }
+	if(items[44] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[44] == "Grapple Beam"){ phenCling = true; }
+	if(items[44] == "Spider Ball"){ phenSpider = true; }
+	if(items[44] == "Ice Beam"){ phenIce = true; }
+	if(items[44] == "Varia Suit"){ phenSuit = true; }
+	if(items[44] == "Gravity Suit"){ phenSuit = true; }
+	if(items[44] == "Phazon Suit"){ phenSuit = true; }
+	if(items[44] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[44] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[45] == "Charge Beam"){ phenCharge = true; }
+	if(items[45] == "Super Missile"){ phenSuper = true; }
+	if(items[45] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[45] == "Grapple Beam"){ phenCling = true; }
+	if(items[45] == "Spider Ball"){ phenSpider = true; }
+	if(items[45] == "Ice Beam"){ phenIce = true; }
+	if(items[45] == "Varia Suit"){ phenSuit = true; }
+	if(items[45] == "Gravity Suit"){ phenSuit = true; }
+	if(items[45] == "Phazon Suit"){ phenSuit = true; }
+	if(items[45] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[45] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[46] == "Charge Beam"){ phenCharge = true; }
+	if(items[46] == "Super Missile"){ phenSuper = true; }
+	if(items[46] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[46] == "Grapple Beam"){ phenCling = true; }
+	if(items[46] == "Spider Ball"){ phenSpider = true; }
+	if(items[46] == "Ice Beam"){ phenIce = true; }
+	if(items[46] == "Varia Suit"){ phenSuit = true; }
+	if(items[46] == "Gravity Suit"){ phenSuit = true; }
+	if(items[46] == "Phazon Suit"){ phenSuit = true; }
+	if(items[46] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[46] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[47] == "Grapple Beam"){ phenCling = true; }
+	if(items[47] == "Spider Ball"){ phenSpider = true; }
+	if(items[47] == "Ice Beam"){ phenIce = true; }
+	if(items[47] == "Varia Suit"){ phenSuit = true; }
+	if(items[47] == "Gravity Suit"){ phenSuit = true; }
+	if(items[47] == "Phazon Suit"){ phenSuit = true; }
+	if(items[47] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[47] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[48] == "Charge Beam"){ phenCharge = true; }
+	if(items[48] == "Super Missile"){ phenSuper = true; }
+	if(items[48] == "Space Jump Boots"){ phenSJ = true; }
+	if(items[48] == "Grapple Beam"){ phenCling = true; }
+	if(items[48] == "Spider Ball"){ phenSpider = true; }
+	if(items[48] == "Ice Beam"){ phenIce = true; }
+	if(items[48] == "Varia Suit"){ phenSuit = true; }
+	if(items[48] == "Gravity Suit"){ phenSuit = true; }
+	if(items[48] == "Phazon Suit"){ phenSuit = true; }
+	if(items[48] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[48] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[49] == "Charge Beam"){ phenCharge = true; }
+	if(items[49] == "Super Missile"){ phenSuper = true; }
+	if(items[49] == "Grapple Beam"){ phenCling = true; }
+	if(items[49] == "Spider Ball"){ phenSpider = true; }
+	if(items[49] == "Ice Beam"){ phenIce = true; }
+	if(items[49] == "Varia Suit"){ phenSuit = true; }
+	if(items[49] == "Gravity Suit"){ phenSuit = true; }
+	if(items[49] == "Phazon Suit"){ phenSuit = true; }
+	if(items[49] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[51] == "Charge Beam"){ phenCharge = true; }
+	if(items[51] == "Super Missile"){ phenSuper = true; }
+	if(items[51] == "Grapple Beam"){ phenCling = true; }
+	if(items[51] == "Spider Ball"){ phenSpider = true; }
+	if(items[51] == "Ice Beam"){ phenIce = true; }
+	if(items[51] == "Varia Suit"){ phenSuit = true; }
+	if(items[51] == "Gravity Suit"){ phenSuit = true; }
+	if(items[51] == "Phazon Suit"){ phenSuit = true; }
+	if(items[51] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[51] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[52] == "Charge Beam"){ phenCharge = true; }
+	if(items[52] == "Super Missile"){ phenSuper = true; }
+	if(items[52] == "Grapple Beam"){ phenCling = true; }
+	if(items[52] == "Spider Ball"){ phenSpider = true; }
+	if(items[52] == "Ice Beam"){ phenIce = true; }
+	if(items[52] == "Varia Suit"){ phenSuit = true; }
+	if(items[52] == "Gravity Suit"){ phenSuit = true; }
+	if(items[52] == "Phazon Suit"){ phenSuit = true; }
+	if(items[52] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[52] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[54] == "Charge Beam"){ phenCharge = true; }
+	if(items[54] == "Super Missile"){ phenSuper = true; }
+	if(items[54] == "Grapple Beam"){ phenCling = true; }
+	if(items[54] == "Spider Ball"){ phenSpider = true; }
+	if(items[54] == "Ice Beam"){ phenIce = true; }
+	if(items[54] == "Varia Suit"){ phenSuit = true; }
+	if(items[54] == "Gravity Suit"){ phenSuit = true; }
+	if(items[54] == "Phazon Suit"){ phenSuit = true; }
+	if(items[54] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[54] == "Boost Ball"){ phenBoost = true; }
+		   
+	if(items[55] == "Charge Beam"){ phenCharge = true; }
+	if(items[55] == "Super Missile"){ phenSuper = true; }
+	if(items[55] == "Grapple Beam"){ phenCling = true; }
+	if(items[55] == "Spider Ball"){ phenSpider = true; }
+	if(items[55] == "Ice Beam"){ phenIce = true; }
+	if(items[55] == "Varia Suit"){ phenSuit = true; }
+	if(items[55] == "Gravity Suit"){ phenSuit = true; }
+	if(items[55] == "Phazon Suit"){ phenSuit = true; }
+	if(items[55] == "Morph Ball Bombs"){ phenBombs = true; }
+	if(items[55] == "Boost Ball"){ phenBoost = true; }
+	//END OF PHENDRANA LIBRARY
+		
 
 
 	if(!isAdded[21]){
@@ -235,20 +513,20 @@ while(resetter < 105){
 		isAdded[6] = true;
 		k++;}
 	}
-	if(hasMissiles){
+	if(hasMissiles && (hasMorph || hasSJ || items[7] == "Morph Ball" || items[7] == "Space Jump Boots")){ //added insurance that you can escape the room easily, in case the item leads to Space Jump and Morph Ball
 	if(!isAdded[7]){ //RUINED SHRINE (BEETLE BATTLE)
 		obItems[k] = items[7];
 		isAdded[7] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph){
+	if(hasMissiles && hasMorph && (hasSJ || hasBoost)){ //removed low% strategy as an option, can SJ or Boost up Half-Pipe instead
 	if(!isAdded[8]){ //RUINED SHRINE (HALF PIPE)
 		obItems[k] = items[8];
 		isAdded[8] = true;
 		k++;}
 	}
 	if(hasMorph && hasMissiles && (hasBombs || hasPB)){
-	if(!isAdded[9]){ //RUINE SHRINE (BOMB TUNNEL)
+	if(!isAdded[9]){ //RUINED SHRINE (BOMB TUNNEL)
 		obItems[k] = items[9];
 		isAdded[9] = true;
 		k++;}
@@ -259,7 +537,7 @@ while(resetter < 105){
 		isAdded[10] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasBoost && hasSpider && ((hasSuit && hasGrapple) || hasSJ)) {
+	if(hasMissiles && hasMorph && hasBombs && hasBoost && hasSpider && ((hasSuit && hasGrapple) || (hasSJ && (hasSuit || e >= 1)))) { //installed heat dependency from Training Chamber Access
 	if(!isAdded[11]){ //TRAINING CHAMBER
 		obItems[k] = items[11];
 		isAdded[11] = true;
@@ -289,7 +567,7 @@ while(resetter < 105){
 		isAdded[15] = true;
 		k++;}
 	}
-	if(hasMissiles && hasWave){
+	if(hasMissiles && hasWave && (hasSJ || (hasMorph && hasBoost))){ //removed low% strategy as an option, can SJ or Boost up Half-Pipe and then scandash instead
 	if(!isAdded[16]){ //TOWER CHAMBER
 		obItems[k] = items[16];
 		isAdded[16] = true;
@@ -303,7 +581,7 @@ while(resetter < 105){
 		k++;}
 	}
 
-	if(hasMorph && hasBombs){
+	if(hasMorph && (hasBombs || hasBoost)){ //accounted for boosting up lip of frame into the tunnel
 	if(!isAdded[18]){ //RUINED GALLERY (MORPH BALL TUNNEL)
 		obItems[k] = items[18];
 		isAdded[18] = true;
@@ -327,7 +605,7 @@ while(resetter < 105){
 		isAdded[22] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs){
+	if(hasMissiles && hasMorph && hasBombs && hasSpider){ //added Spider to make it harder to fall and have to reset
 	if(!isAdded[23]){ //SUNCHAMBER (GHOSTS)
 		obItems[k] = items[23];
 		isAdded[23] = true;
@@ -364,6 +642,7 @@ while(resetter < 105){
 		k++;}
 	}
 	if(hasMissiles && hasMorph && (hasBombs || (hasPB && (items[30] == "Morph Ball Bomb" || items[29] == "Morph Ball Bomb")))){
+		//can use Boost Ball to return, but camera is messy on first tunnel. Normal or Veteran?
 	if(!isAdded[29]){ //BURN DOME (MISSILE)
 		obItems[k] = items[29];
 		isAdded[29] = true;
@@ -371,6 +650,7 @@ while(resetter < 105){
 	}
 	if(hasMorph && hasMissiles){
 	if(items[30] == "Morph Ball Bomb" || (items[29] == "Morph Ball Bomb" && hasPB)|| hasBombs){
+		//can use Boost Ball to return, but camera is messy on first tunnel. Normal or Veteran?
 	if(!isAdded[30]){ //BURN DOME (I. DRONE)
 		obItems[k] = items[30];
 		isAdded[30] = true;
@@ -414,57 +694,58 @@ while(resetter < 105){
 		isAdded[36] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && ((hasBoost && (hasPB || hasWave)) || hasPlasma)){
+		//consolidated Phendrana access into a library that ensures you can escape it
+	if(escapePhendrana && hasPlasma){ //removed Infinite Speed
 	if(!isAdded[37]){ //PHENDRANA SHORELINES (ICE)
 		obItems[k] = items[37];
 		isAdded[37] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && hasCharge && hasSuper && hasSpider){
+	if(hasMissiles && hasMorph && escapePhendrana && hasCharge && hasSuper && hasSpider){
 	if(!isAdded[38]){ //PHENDRANA SHORELINES (SPIDER)
 		obItems[k] = items[38];
 		isAdded[38] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && ((hasBoost && (hasPB || hasWave)) || hasPlasma)){
+	if(escapePhendrana && hasSJ && hasMorph && hasPlasma)){ //removed Infinite Speed and Bomb Jumps
 	if(!isAdded[39]){ //CHOZO ICE TEMPLE
 		obItems[k] = items[39];
 		isAdded[39] = true;
 		k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasPlasma && hasSuit){
+	if(escapePhendrana && hasPlasma && (hasSJ || hasBombs){
 	if(!isAdded[40]){ //ICE RUINS WEST
 		obItems[k] = items[40];
 		isAdded[40] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && ((hasBoost && (hasPB || hasWave)) || hasPlasma)){
+	if(escapePhendrana && hasPlasma)){ //removed Infinite Speed
 	if(!isAdded[41]){ //ICE RUINS EAST (ICE)
 		obItems[k] = items[41];
 		isAdded[41] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasSuit && hasBombs && hasSpider){
+	if(escapePhendrana && hasMorph && hasSpider){
 	if(!isAdded[42]){ //ICE RUINS EAST (SPIDER)
 		obItems[k] = items[42];
 		isAdded[42] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasSuit && hasBombs && (hasWave || hasPB)){
+	if(escapePhendrana && hasMorph && hasBombs && hasSJ && (hasWave || items[43] == "Wave Beam" || hasPB)){ //removed Bomb Jump
 	if(!isAdded[43]){ //CHAPEL OF THE ELDERS
 		obItems[k] = items[43];
 		isAdded[43] = true;
 		k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && hasWave && (hasSJ || hasSpider)){
+	if(escapePhendrana && hasMorph && (hasSJ && (hasBombs || hasBoost))){ //removed Bomb Jump method of climbing the walls
 	if(!isAdded[44]){ //RUINED COURTYARD
 		obItems[k] = items[44];
 		isAdded[44] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasSuit){
+	if(hasMissiles && escapePhendrana){
 	if(!isAdded[45]){ //PHENDRANA CANYON
 		obItems[k] = items[45];
 		isAdded[45] = true;
@@ -472,108 +753,108 @@ while(resetter < 105){
 	}
 
 	if(items[46] ==  "Space Jump Boots" || items[46] == "Spider Ball" || items[46] == "Grapple Beam"){
-	if(hasMissiles && hasMorph && (hasSuit || e >= 1) && hasWave){
-	if(!isAdded[46]){ //QUARANTINE CAVE (if item here is listed above)
-		obItems[k] = items[46];
-		isAdded[46] = true;
-		k++;}
+		if(canCrossTwinFires){
+		if(!isAdded[46]){ //QUARANTINE CAVE (if item here is listed above)
+			obItems[k] = items[46];
+			isAdded[46] = true;
+			k++;}
 	}
 	}
 
-	if(hasMissiles && hasMorph && (hasSuit  || e >= 1) && hasWave && (hasSJ || hasGrapple || hasSpider)){
+	if((canCrossTwinFires || (escapePhendrana && hasSJ && hasCharge && hasSuper && hasWave)) && (hasSJ || hasGrapple || hasSpider)){
 	if(!isAdded[46]){ //QUARANTINE CAVE (if not SJ, Spider, or Grapple)
 		obItems[k] = items[46];
 		isAdded[46] = true;
 		k++;}
 	}
 
-
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && hasWave && hasCharge && hasSuper && (hasSJ || hasSpider)){
+	//added new function "labViaPike" to compress No Space Jump method
+	if(escapePhendrana && ((hasSJ && hasWave) || labViaPike) && hasCharge && hasSuper){
 	if(!isAdded[47]){ //RESEARCH LAB HYDRA
 		obItems[k] = items[47];
 		isAdded[47] = true;
 		k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasWave && (hasSuit || e >=1) && (hasSJ || hasGrapple)){
+	if((canCrossTwinFires || (escapePhendrana && hasSJ && hasCharge && hasSuper && hasWave)) && (hasSJ || hasGrapple)){
 	if(!isAdded[48]){ //QUARANTINE MONITOR
 		obItems[k] = items[48];
 		isAdded[48] = true;
 		k++;}
 	}
 
-	if(hasMissiles && hasMorph && ((hasBombs && hasSuit) || (hasIce && (hasSuit || e >= 1))) && hasWave && hasSJ){
-	if(!isAdded[49]){ //OBESERVATORY
+	if(escapePhendrana && hasWave && hasSJ && hasMorph && hasBombs){
+	if(!isAdded[49]){ //OBSERVATORY
 		obItems[k] = items[49];
 		isAdded[49] = true;
 		k++;}
 
 	}
 
-	if(hasMissiles && hasMorph && (hasSuit || e >= 1) && hasWave && hasIce && hasPlasma && (hasSJ || hasSpider)){
+	if((canCrossTwinFires || escapePhendrana) && hasWave && hasIce && hasPlasma && (hasSJ || hasSpider)){
 	if(!isAdded[50]){ //TRANSPORT ACCESS
 		obItems[k] = items[50];
 		isAdded[50] = true;
 		k++;}
 	}
-
-	if(hasMissiles && hasMorph && hasBombs && hasWave && (hasSuit || (e >=1 && hasIce)) && (hasSJ || (hasSpider && hasIce && hasPlasma))){
+	
+	if(escapePhendrana && ((hasSJ && hasWave) || labViaPike) && hasMissiles && (hasSJ || hasPlasma) && (hasBoost || hasBombs)){ //Boost is now a viable method to exit the Tower
 	if(!isAdded[51]){ //CONTROL TOWER
 		obItems[k] = items[51];
 		isAdded[51] = true;
 		k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasSuit && hasWave && hasSJ){
+	if(escapePhendrana && ((hasSJ && hasWave) || labViaPike)){
 	if(!isAdded[52]){ //RESEARCH CORE
 		obItems[k] = items[52];
 		isAdded[52] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasSJ && hasWave && hasIce && (hasSuit || e >= 1)){
+		
+	if(escapePhendrana && hasSJ && hasWave && hasIce){
 	if(!isAdded[53]){ //FROST CAVE
 		obItems[k] = items[53];
 		isAdded[53] = true;
 		k++;}
 		}
 
-
-	if(hasMissiles && hasMorph && (hasBombs || hasSJ) && (hasSuit || (hasIce && e >= 1)) && hasWave && hasSJ){
+	if(escapePhendrana && ((hasSJ && hasWave) || labViaPike) && hasMissiles){
 		if(!isAdded[54]){ //RESEARCH LAB AETHER (ENERGY TANK)
 			obItems[k] = items[54];
 			isAdded[54] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && (hasBombs || hasSJ) && (hasSuit || (hasIce && e >= 1)) && hasWave && hasSJ){
+	if(escapePhendrana && ((hasSJ && hasWave) || (labViaPike && hasBombs)){
 		if(!isAdded[55]){ // RESEARCH LAB AETHER (MORPH TRACK)
 			obItems[k] = items[55];
 			isAdded[55] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && (hasSuit || e >= 1) && hasWave && hasIce && hasSJ){
+	if(escapePhendrana && hasWave && hasIce && hasSJ){
 		if(!isAdded[56]){ //GRAVITY CHAMBER (UNDERWATER)
 			obItems[k] = items[56];
 			isAdded[56] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasWave && hasIce && (hasSuit || e >= 1) && (hasSJ || (hasPlasma && hasGrapple))){
+	if(escapePhendrana && hasWave && hasIce && (hasSJ || (hasPlasma && hasGrapple))){
 		if(!isAdded[57]){ //GRAVITY CHAMBER (GRAPPLE LEDGE)
 			obItems[k] = items[57];
 			isAdded[57] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasWave && (hasSuit || e >= 1) && hasIce && hasSJ && hasPlasma && hasPB){
+	if(escapePhendrana && hasWave && hasIce && hasSJ && hasPlasma && hasPB){
 		if(!isAdded[58]){ //STORAGE CAVE
 			obItems[k] = items[58];
 			isAdded[58] = true;
 			k++;}
 		}
 
-	if(hasMissiles && hasMorph && hasWave && hasIce && hasSJ && (hasSuit || e >=1)){
+	if(escapePhendrana && hasWave && hasIce && hasSJ){
 	if(!isAdded[59]){ //SECURITY CAVE
 			obItems[k] = items[59];
 			isAdded[59] = true;
@@ -594,7 +875,7 @@ while(resetter < 105){
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && (hasBombs || hasSJ) && hasIce){
+	if(hasMissiles && hasMorph && ((hasBombs && hasSpider && hasBoost && hasWave) || hasSJ) && hasIce){ //no more Bomb Jumping up Crash Site, but going through Chozo Ruins is allowed
 		if(!isAdded[63]){ //OVERGROWN CAVERN
 			obItems[k] = items[63];
 			isAdded[63] = true;
@@ -622,28 +903,28 @@ while(resetter < 105){
 			k++;}
 	}
 
-	if(hasMissiles && ((hasMorph && hasBombs) || hasPlasma) && hasSJ){
+	if(hasMissiles && (hasMorph || hasPlasma) && hasSJ){ //bombs aren't necessary for the very safe OoB
 		if(!isAdded[67]){ // ARBOR CHAMBER
 			obItems[k] = items[67];
 			isAdded[67] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasWave && hasIce){
+	if(hasMissiles && hasMorph && (hasBombs || hasGravity) && hasWave && hasIce){ //Gravity is an acceptable way to climb as well as Bombs
 		if(!isAdded[68]){ //CARGO FREIGHT LIFT TO DECK GAMMA
 			obItems[k] = items[68];
 			isAdded[68] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasCharge && hasGravity && hasWave && hasIce && hasSuper && hasSJ){
+	if(hasMissiles && hasMorph && (hasBombs || (hasGravity && hasSJ)) && hasCharge && hasWave && hasIce && hasSuper){ //Bombs alone are fine, but Space Jump required with Gravity
 		if(!isAdded[69]){ //BIOHAZARD CONTAINMENT
 			obItems[k] = items[69];
 			isAdded[69] = true;
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasSJ && hasIce && (hasGravity || hasBoost)){
+	if(hasMissiles && hasMorph && hasBombs && hasIce && ((hasGravity && hasSJ) || hasBoost || (hasSJ && items[70] == "Gravity Suit") || items[70] == "Boost Ball")){ //this item can now be the escape method
 		if(!isAdded[70]){ //HYDRO ACCESS TUNNEL
 			obItems[k] = items[70];
 			isAdded[70] = true;
@@ -823,7 +1104,7 @@ while(resetter < 105){
 		k++;}
 	}
 
-	if(hasMissiles && hasSuit){
+	if(hasMissiles && hasSuit && (hasSJ || (hasMorph && hasBombs))){ //must Space Jump or Bomb to platform now
 	if(!isAdded[96]){ //WARRIOR SHRINE
 		obItems[k] = items[96];
 		isAdded[96] = true;
@@ -838,14 +1119,14 @@ while(resetter < 105){
 	}
 
 	if(hasMissiles && hasSuit){
-	if(!isAdded[98]){ //FIREY SHORES (MORPH TRACK)
+	if(!isAdded[98]){ //FIERY SHORES (MORPH TRACK)
 		obItems[k] = items[98];
 		isAdded[98] = true;
 		k++;}
 	}
 
-	 if(hasMissiles && hasSuit && hasMorph && hasPB && (hasBombs || items[99] == "Morph Ball Bomb")){
-	 if(!isAdded[99]){ //FIREY SHORES (POWER BOMB)
+	 if(hasMissiles && hasSuit && hasMorph && (hasSJ || hasBombs) && hasPB && (hasBombs || items[99] == "Morph Ball Bomb" || hasBoost || items[99] == "Boost Ball")){ //must climb up to platform now, can escape item location with Boost
+	 if(!isAdded[99]){ //FIERY SHORES (POWER BOMB)
 		obItems[k] = items[99];
 		isAdded[99] = true;
 		k++;}
@@ -858,7 +1139,7 @@ while(resetter < 105){
 		k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasWave){
+	if(canCrossTwinFires){ //easier access methods; no more single-tank scandash
 	if(!isAdded[101]){ //MAGMOOR WORKSTATION
 		obItems[k] = items[101];
 		isAdded[101] = true;
