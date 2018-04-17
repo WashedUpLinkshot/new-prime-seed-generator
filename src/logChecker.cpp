@@ -688,7 +688,7 @@ while(resetter < 105){
 		isAdded[35] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && (hasIce || (hasSJ || (hasSpider && hasWave)))){
+	if(hasMissiles && hasMorph && hasBombs && (hasIce && (hasSJ || (hasSpider && hasWave)))){ //changed OR to AND after hasIce to fix a cyclical logic error
 	if(!isAdded[36]){ //ANTECHAMBER
 		obItems[k] = items[36];
 		isAdded[36] = true;
