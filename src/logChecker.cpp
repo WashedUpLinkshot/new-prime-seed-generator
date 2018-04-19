@@ -676,7 +676,7 @@ while(resetter < 105){
 		isAdded[33] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && (hasSJ || (hasBoost && hasCharge && hasSuper && hasSpider && (hasWave || hasIce)))){
+	if(hasMissiles && hasMorph && ((hasBombs || hasBoost) && hasSJ && hasIce) || (hasBombs && hasSpider && (hasSJ || (hasBoost && hasCharge && hasSuper)) && (hasWave || hasIce))){ //redid logic to add backdoor via Overgrown Cavern (including Boosting up the branch into the tunnel) and front door via Furnace
 	if(!isAdded[34]){ //CROSSWAY
 		obItems[k] = items[34];
 		isAdded[34] = true;
@@ -688,7 +688,7 @@ while(resetter < 105){
 		isAdded[35] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && (hasIce && (hasSJ || (hasSpider && hasWave)))){ //changed OR to AND after hasIce to fix a cyclical logic error
+	if(hasMissiles && hasMorph && (hasIce || items[36] == "Ice Beam") && ((hasBombs && (hasBoost || hasSJ) && hasSpider && hasWave) || (hasSJ && hasIce && (hasBombs || hasBoost)))){ //redid logic to add backdoor via Overgrown Cavern (including Boosting up the branch into the tunnel) and front door via Furnace
 	if(!isAdded[36]){ //ANTECHAMBER
 		obItems[k] = items[36];
 		isAdded[36] = true;
