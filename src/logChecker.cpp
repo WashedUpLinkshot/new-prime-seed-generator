@@ -648,7 +648,7 @@ while(resetter < 105){
 		isAdded[29] = true;
 		k++;}
 	}
-	if(hasMorph && hasMissiles && (hasBombs || hasBoost)){
+	if(hasMorph && hasMissiles &&){
 	if(items[30] == "Morph Ball Bomb" || (items[29] == "Morph Ball Bomb" && hasPB)|| hasBombs){
 	if(!isAdded[30]){ //BURN DOME (I. DRONE)
 		obItems[k] = items[30];
