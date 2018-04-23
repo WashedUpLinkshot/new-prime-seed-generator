@@ -537,7 +537,7 @@ while(resetter < 105){
 		isAdded[10] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasBoost && hasSpider && ((hasSuit && hasGrapple) || (hasSJ && (hasSuit || e >= 1)))) { //installed heat dependency from Training Chamber Access
+	if(hasMorph && hasBombs && hasBoost && hasSpider && ((hasSuit && hasGrapple) || (hasSJ && hasGravity && e >= 1))) { //installed heat dependency from Training Chamber Access
 	if(!isAdded[11]){ //TRAINING CHAMBER
 		obItems[k] = items[11];
 		isAdded[11] = true;
@@ -549,13 +549,13 @@ while(resetter < 105){
 		isAdded[12] = true;
 		k++;}
 	}
-	if(hasMorph && hasWave && ((hasSuit && hasGrapple) || (hasSJ &&(hasSuit || e >= 1)))){
+	if(hasMorph && hasWave && ((hasSuit && hasGrapple) || (hasSJ && hasGravity && e >= 1))){ //replaced scandash with Gravity L-Jump
 	if(!isAdded[13]){ //TRAINING CHAMBER ACCESS
 		obItems[k] = items[13];
 		isAdded[13] = true;
 		k++;}
 	}
-	if(hasMorph && hasPB && ((hasSuit && hasGrapple) || (hasSJ && (hasSuit || e >= 2)))){
+	if(hasMorph && hasPB && ((hasSuit && hasGrapple) || (hasSJ && hasGravity && e >= 1))){ //replaced scandash with Gravity L-Jump
 	if(!isAdded[14]){ //MAGMA POOL
 		obItems[k] = items[14];
 		isAdded[14] = true;
@@ -605,7 +605,7 @@ while(resetter < 105){
 		isAdded[22] = true;
 		k++;}
 	}
-	if(hasMissiles && hasMorph && hasBombs && hasSpider){ //added Spider to make it harder to fall and have to reset
+	if(isAdded[22] && hasSpider && hasCharge && hasSuper){ //reverted to Easy Difficulty until Flaahgra can ensure you won't softlock your seed by falling, forcing you to refight it
 	if(!isAdded[23]){ //SUNCHAMBER (GHOSTS)
 		obItems[k] = items[23];
 		isAdded[23] = true;
@@ -648,9 +648,8 @@ while(resetter < 105){
 		isAdded[29] = true;
 		k++;}
 	}
-	if(hasMorph && hasMissiles){
+	if(hasMorph && hasMissiles && (hasBombs || hasBoost)){
 	if(items[30] == "Morph Ball Bomb" || (items[29] == "Morph Ball Bomb" && hasPB)|| hasBombs){
-		//can use Boost Ball to return, but camera is messy on first tunnel. Normal or Veteran?
 	if(!isAdded[30]){ //BURN DOME (I. DRONE)
 		obItems[k] = items[30];
 		isAdded[30] = true;
@@ -798,7 +797,7 @@ while(resetter < 105){
 		k++;}
 	}
 	
-	if(escapePhendrana && ((hasSJ && hasWave) || labViaPike) && hasMissiles && (hasSJ || hasPlasma) && (hasBoost || hasBombs)){ //Boost is now a viable method to exit the Tower
+	if(escapePhendrana && ((hasSJ && hasWave) || labViaPike) && hasMissiles && (hasSJ || hasPlasma) && (hasBoost || items[51] == "Boost Ball" || items[51] == "Morph Ball Bombs" || hasBombs)){ //Boost is now a viable method to exit the Tower, escape method allowed to be in it due to nearby Save Station at Observatory
 	if(!isAdded[51]){ //CONTROL TOWER
 		obItems[k] = items[51];
 		isAdded[51] = true;
@@ -827,7 +826,7 @@ while(resetter < 105){
 	}
 
 	if(escapePhendrana && ((hasSJ && hasWave) || (labViaPike && hasBombs))){
-		if(!isAdded[55]){ // RESEARCH LAB AETHER (MORPH TRACK)
+		if(!isAdded[55]){ //RESEARCH LAB AETHER (MORPH TRACK)
 			obItems[k] = items[55];
 			isAdded[55] = true;
 			k++;}
@@ -903,8 +902,8 @@ while(resetter < 105){
 			k++;}
 	}
 
-	if(hasMissiles && (hasMorph || hasPlasma) && hasSJ){ //bombs aren't necessary for the very safe OoB
-		if(!isAdded[67]){ // ARBOR CHAMBER
+	if(hasMissiles && hasPlasma && hasSJ){ //OoB turns out not to be "very safe" and is no longer required
+		if(!isAdded[67]){ //ARBOR CHAMBER
 			obItems[k] = items[67];
 			isAdded[67] = true;
 			k++;}
@@ -924,7 +923,7 @@ while(resetter < 105){
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasIce && ((hasGravity && hasSJ) || hasBoost || (hasSJ && items[70] == "Gravity Suit") || items[70] == "Boost Ball")){ //this item can now be the escape method
+	if(hasMissiles && hasMorph && hasBombs && hasWave && hasIce && ((hasGravity && hasSJ) || hasBoost){ 
 		if(!isAdded[70]){ //HYDRO ACCESS TUNNEL
 			obItems[k] = items[70];
 			isAdded[70] = true;
@@ -953,7 +952,7 @@ while(resetter < 105){
 	}
 
 	if(hasMissiles && hasMorph && hasBombs && hasIce && hasPB && (hasSJ || hasSpider) && hasBoost){
-		if(!isAdded[74]){ // LIFE GROVE (CHOZO)
+		if(!isAdded[74]){ //LIFE GROVE (CHOZO)
 			obItems[k] = items[74];
 			isAdded[74] = true;
 			k++;}
@@ -987,7 +986,7 @@ while(resetter < 105){
 			k++;}
 	}
 
-	if(hasMissiles && hasMorph && hasBombs && hasWave && hasIce && hasPB && hasSJ){
+	if(isAdded[86] && hasPB){ //compressed into being able to start the cutscene
 		if(!isAdded[79]){ //ELITE RESEARCH (PHAZON ELITE)
 			obItems[k] = items[79];
 			isAdded[79] = true;
@@ -1118,14 +1117,14 @@ while(resetter < 105){
 		k++;}
 	}
 
-	if(hasMissiles && hasSuit){
+	if(hasMissiles && hasSuit && (hasSJ || hasGravity || hasGrapple || (hasMorph && hasBombs))){ //scandash into morph tunnel removed, possibly temporary
 	if(!isAdded[98]){ //FIERY SHORES (MORPH TRACK)
 		obItems[k] = items[98];
 		isAdded[98] = true;
 		k++;}
 	}
 
-	 if(hasMissiles && hasSuit && hasMorph && (hasSJ || hasBombs) && hasPB && (hasBombs || items[99] == "Morph Ball Bomb" || hasBoost || items[99] == "Boost Ball")){ //must climb up to platform now, can escape item location with Boost
+	 if(hasMissiles && hasSuit && hasMorph && (hasSJ || hasBombs) && hasPB && (hasBombs || hasBoost)){ //must climb up to platform now, can escape item location with Boost, removed possibility that it's your escape method because there is no guaranteed nearby Save Station
 	 if(!isAdded[99]){ //FIERY SHORES (POWER BOMB)
 		obItems[k] = items[99];
 		isAdded[99] = true;
