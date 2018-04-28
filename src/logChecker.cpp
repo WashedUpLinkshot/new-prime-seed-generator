@@ -648,7 +648,7 @@ while(resetter < 105){
 		isAdded[29] = true;
 		k++;}
 	}
-	if(hasMorph && hasMissiles &&){
+	if(hasMorph && hasMissiles){
 	if(items[30] == "Morph Ball Bomb" || (items[29] == "Morph Ball Bomb" && hasPB)|| hasBombs){
 	if(!isAdded[30]){ //BURN DOME (I. DRONE)
 		obItems[k] = items[30];
@@ -738,7 +738,7 @@ while(resetter < 105){
 		k++;}
 	}
 
-	if(escapePhendrana && hasMorph && (hasSJ && (hasBombs || hasBoost))){ //removed Bomb Jump method of climbing the walls
+	if(escapePhendrana && hasWave && hasMorph && (hasSJ || (hasBombs && hasBoost))){ //removed Bomb Jump method of climbing the walls
 	if(!isAdded[44]){ //RUINED COURTYARD
 		obItems[k] = items[44];
 		isAdded[44] = true;
